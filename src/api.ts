@@ -17,3 +17,19 @@ export const save = (payload: AppState) => {
     }
   });
 };
+
+export const load = () => {
+  return fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/load`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  }).then((response) => {
+    if (response.ok) {
+      return response.json() as Promise<AppState>;
+    } else {
+      console.log(response);
+      throw new Error("Error while loading the state");
+    }
+  });
+};
